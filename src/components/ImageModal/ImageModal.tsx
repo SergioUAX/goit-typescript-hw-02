@@ -7,7 +7,7 @@ Modal.setAppElement('#root');
 
 const ImageModal: React.FC<ImageModalProps> = ({ isOpen, image, onClose }) => {
   useEffect(() => {
-    const handleEsc = (e: KeyboardEvent): void => {
+    const handleEsc = (e: globalThis.KeyboardEvent): void => {
       if (e.key === 'Escape') {
         onClose();
       }
