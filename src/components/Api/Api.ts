@@ -1,5 +1,5 @@
 import axios from "axios";
-import {UnsplashResponse } from './api.types';
+import { UnsplashResponse } from './Api.types';
 
 
 axios.defaults.baseURL = "https://api.unsplash.com/";

@@ -1,4 +1,4 @@
-import { UnsplashImage } from '../../components/Api/api.types';
+import { UnsplashImage } from '../../components/Api/Api.types';
 
 export interface ImageModalProps {
   isOpen: boolean;
