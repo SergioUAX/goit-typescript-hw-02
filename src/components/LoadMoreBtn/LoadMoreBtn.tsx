@@ -1,7 +1,8 @@
 import styles from './LoadMoreBtn.module.css';
+import { LoadMoreBtnProps } from './LoadMoreBtn.types';
 
-export const LoadMoreBtn = ({ onLoadMore }) => {
-  const handleOnClick = (evt) => {
+export const LoadMoreBtn: React.FC<LoadMoreBtnProps> = ({ onLoadMore }) => {
+  const handleOnClick = (evt: React.MouseEvent<HTMLButtonElement>): void => {
         evt.preventDefault(); 
         onLoadMore();  
   };

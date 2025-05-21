@@ -3,27 +3,27 @@ import './App.module.css';
 import { SearchBar } from "../SearchBar/SearchBar";
 import { Toaster } from 'react-hot-toast';
 import { ImageGallery } from '../ImageGallery/ImageGallery';
-import { fetchImagesWithTopic } from '../../unsplash-api';
+import { fetchImagesWithTopic } from '../../components/Api/api';
+import { UnsplashImage } from '../../components/Api/api.types';
 import { Loader } from '../Loader/Loader';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 import { LoadMoreBtn } from '../LoadMoreBtn/LoadMoreBtn';
 import ImageModal from '../ImageModal/ImageModal';
 
 
-const App = () => {
-  const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const [topic, setTopic] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+const App: React.FC = () => {
+  const [images, setImages] = useState<UnsplashImage[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [topic, setTopic] = useState<string>('');
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<UnsplashImage | null>(null);
     
-  const handleSearch = (searchTopic) => {
+  const handleSearch = (searchTopic: string): void => {
     if (searchTopic.trim() === '') {
       ErrorMessage("Please enter a search topic !!!");
     return;
     }
-
     setImages([]);
     setTopic(searchTopic);
   };
@@ -31,23 +31,21 @@ const App = () => {
   useEffect(() => {
   const fetchImages = async () => {
     if (topic.trim() === '') return;
-
     try {
       setLoading(true);
       const data = await fetchImagesWithTopic(1, 12, topic);
       setImages(data.results);
       setPage(2);
-    } catch (err) {
+    } catch (err: any) {
       ErrorMessage(err.message);
     } finally {
       setLoading(false);
     }
   };
-
   fetchImages();
   }, [topic]);
 
-  const handleLoadMore = async () => {
+  const handleLoadMore = async (): Promise<void> => {
     if (topic.trim() === '') {
       ErrorMessage("Please enter a search topic !!!");
       return;
@@ -57,19 +55,19 @@ const App = () => {
       const data = await fetchImagesWithTopic(page, 12, topic);
       setImages((prevImages) => [...prevImages, ...data.results]);
       setPage((prevPage) => prevPage + 1);
-    } catch (err) {
+    } catch (err: any) {
       ErrorMessage(err.message);
     } finally {
       setLoading(false);
     }
   };
 
-  const openModal = (image) => {
+  const openModal = (image: UnsplashImage): void => {
     setSelectedImage(image);
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
+  const closeModal = (): void => {
     setIsModalOpen(false);
     setSelectedImage(null);
   };

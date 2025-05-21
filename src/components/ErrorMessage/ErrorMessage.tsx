@@ -1,6 +1,6 @@
 import { toast } from 'react-hot-toast';
 
-export const ErrorMessage = (message = 'Something went wrong') => {
+export const ErrorMessage = (message: string = 'Something went wrong'): void => {
   toast.error(message, {
     duration: 3000,
     position: 'top-right',

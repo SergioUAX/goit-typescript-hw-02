@@ -1,12 +1,13 @@
 import Modal from 'react-modal';
-import { useEffect } from 'react';
+import { KeyboardEvent, useEffect } from 'react';
 import styles from './ImageModal.module.css';
+import { ImageModalProps } from './ImageModal.types';
 
 Modal.setAppElement('#root');
 
-const ImageModal = ({ isOpen, image, onClose }) => {
+const ImageModal: React.FC<ImageModalProps> = ({ isOpen, image, onClose }) => {
   useEffect(() => {
-    const handleEsc = (e) => {
+    const handleEsc = (e: KeyboardEvent): void => {
       if (e.key === 'Escape') {
         onClose();
       }
@@ -27,8 +28,8 @@ const ImageModal = ({ isOpen, image, onClose }) => {
     >      
       <div className={styles.modalcontent} onClick={(e) => e.stopPropagation()}>
         <img
-          src={image?.urls?.regular}
-          alt={image?.alt_description}
+          src={image?.urls.regular}
+          alt={image?.alt_description || 'Unsplash image'}
           draggable={false}
         />
         <button

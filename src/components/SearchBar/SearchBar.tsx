@@ -1,11 +1,12 @@
 import { FiSearch } from "react-icons/fi";
 import styles from './SearchBar.module.css';
+import { SearchBarProps } from "./SearchBar.types";
 
-export const SearchBar = ({ onSearch }) => {
-  const handleSubmit = (evt) => {
+export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
+  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
-    const form = evt.target;
-	  const topic = form.elements.topic.value;     
+    const form = evt.currentTarget;
+	  const topic = (form.elements.namedItem('topic') as HTMLInputElement).value;     
     onSearch(topic);
     form.reset();
   };
